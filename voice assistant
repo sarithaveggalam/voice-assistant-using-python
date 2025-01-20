@@ -1,0 +1,140 @@
+import pyttsx3
+import speech_recognition as sr
+import wikipedia
+import webbrowser
+import datetime
+import os
+import smtplib #smtplib used for send gmail using email
+
+engine=pyttsx3.init('sapi5')
+voices=engine.getProperty('voices')
+print(voices[1].id)# shows the code but not neccesary to keep use the comment lines if needed
+
+
+engine.setProperty('voice',voices[1].id)
+
+#pyttsx3 audio function 
+
+def speak(audio):
+    engine.say(audio)
+    engine.runAndWait()
+
+#wish me    
+def wishMe():
+    hour=int(datetime.datetime.now().hour)
+    if hour>=0 and hour<12:
+        speak("Good Morning!")
+    elif hour>=12 and hour<18:
+        speak("Good Evening!")
+    else:
+        speak("Good Evening!")
+    speak("I am Mic Sir. Please tell me how may i help you")
+ 
+ #take command
+
+def takeCommand():
+    #it takes microphone input from the user and return string output
+    r=sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening.....")
+        r.pause_threshold=1 #seconds of non speaking audio before a pharse is considered complete.
+        audio=r.listen(source) #control + enter to get more info about them
+
+    try:
+        print("Recognizing....")   
+        query=r.recognize_google(audio,language='en-in')
+        print(f"user said:{query}\n")
+    except Exception as e:
+        #print(e)  it prints error if u dont need remove it using comment lines
+        print("say that again please....")
+        return "None"
+    return query
+
+
+def sendEmail(to,content):
+    server=smtplib.SMTP('smtp.gmail.com','your-password')#enter your password to send the mail to the required person
+    server.sendmail('harishpandu548@@gmail.com',to,content)
+    server.close()
+#you should first allow less secure apps to send the mail
+
+if _name_ == "_main_":
+    wishMe() # whis the user according to the time
+
+    #while True:  you can use this also according to your wish
+    if 1:
+        query=takeCommand().lower()
+        #code for executing tasks based on the user query
+        #1. wikipedia searching according to the user
+        if 'wikipedia' in query:
+            speak('Searching wikipedia.....')
+            query=query.replace("wikipedia","")
+            results=wikipedia.summary(query,sentences=5)# based on sentences the outputlines are printed so according to you write how many lines do you want to print
+            speak("According to wikipedia")
+            print(results)
+            speak(results)
+            results = wikipedia.summary(query, sentences=2)
+        #2. open youtube
+        elif 'open youtube' in query:
+            webbrowser.open("youtube.com")
+
+        elif 'open google' in query:
+            webbrowser.open("google.com")
+
+        elif 'open instagram' in query:
+            webbrowser.open("instagram.com")
+
+        elif 'open chrome' in query:
+            webbrowser.open("chrome.com")
+
+        elif 'open whatsapp' in query:
+            webbrowser.open("whatsapp.com")
+        
+        elif 'open netflix' in query:
+            webbrowser.open("netflix.com")
+
+        elif 'open facebook' in query:
+            webbrowser.open("facebook.com")
+
+        elif 'open spotify' in query:
+            webbrowser.open("spotify.com")
+
+        elif 'open gmail' in query:
+            webbrowser.open("gmail.com")
+
+        elif 'open amazon' in query:
+            webbrowser.open("amazon.com")
+
+        elif 'open flipkart' in query:
+            webbrowser.open("flipkart.com")
+
+        elif 'open telegram' in query:
+            webbrowser.open("telegram.com")
+
+        elif 'open mrcet student login' in query:
+            webbrowser.open("mrcet student login.com")
+
+        elif 'open stackoverflow' in query:
+            webbrowser.open("stackoverflow.com")
+        
+        elif 'the time' in query:
+            strTime=datetime.datetime.now().strftime("%H:%M:%S")
+            speak(f"sir, the time is {strTime}")
+        
+        elif 'open code' in query:
+            codePath="C:\\Users\Harish A\\AppData\\Local\\Programs\\Microsoft VS Code"
+            os.startfile(codePath)# here you can write code path so you can open specif files you did in vs code
+
+        elif 'email to harish' in query:
+            try:
+                speak("what should i do")
+                content=takeCommand()
+                to="harishpandu548@gmail.com"
+                sendEmail(to,content)
+                speak("Email has been sent!.....")
+            except Exception as e:
+                print(e)
+                speak("sorry my frnd . I am unable to send this mail")
+            
+        elif 'quit' in query:
+            exit()
+#you can use more elif if you wanted to open more apps according to the user convinent so the code becomes bigger. if you want you can add
