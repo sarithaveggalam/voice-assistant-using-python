@@ -53,7 +53,7 @@ def takeCommand():
 
 def sendEmail(to,content):
     server=smtplib.SMTP('smtp.gmail.com','your-password')#enter your password to send the mail to the required person
-    server.sendmail('harishpandu548@@gmail.com',to,content)
+    server.sendmail('sarithaveggalam2004@gmail.com',to,content)
     server.close()
 #you should first allow less secure apps to send the mail
 
@@ -121,14 +121,14 @@ if _name_ == "_main_":
             speak(f"sir, the time is {strTime}")
         
         elif 'open code' in query:
-            codePath="C:\\Users\Harish A\\AppData\\Local\\Programs\\Microsoft VS Code"
+            codePath="C:\\Users\Saritha A\\AppData\\Local\\Programs\\Microsoft VS Code"
             os.startfile(codePath)# here you can write code path so you can open specif files you did in vs code
 
-        elif 'email to harish' in query:
+        elif 'email to saritha' in query:
             try:
                 speak("what should i do")
                 content=takeCommand()
-                to="harishpandu548@gmail.com"
+                to="sarithaveggalam2004@gmail.com"
                 sendEmail(to,content)
                 speak("Email has been sent!.....")
             except Exception as e:
