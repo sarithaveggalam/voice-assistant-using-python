@@ -55,7 +55,7 @@ This Voice Assistant overcomes these hurdles by:
 
 1. Clone the repository:
    ```bash
-   git clone <https://github.com/your-username/Voice-Assistant.git>
+   git clone <https://github.com/sarithaveggalam/voice-assistant-using-python.git>
    ```
 2. Install dependencies:
    ```bash
